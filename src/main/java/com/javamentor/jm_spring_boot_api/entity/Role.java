@@ -1,5 +1,6 @@
 package com.javamentor.jm_spring_boot_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.Assert;
 
@@ -9,6 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
+@JsonIgnoreProperties(value = {"authority"})
 public class Role implements GrantedAuthority, Comparable {
 
     @Id

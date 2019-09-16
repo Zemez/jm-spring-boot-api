@@ -1,5 +1,6 @@
 package com.javamentor.jm_spring_boot_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties(value = {"authorities", "admin", "user", "roleNames"})
 public class User implements UserDetails, CredentialsContainer {
 
 //    private static final Logger logger = LoggerFactory.getLogger(User.class);
@@ -159,6 +161,7 @@ public class User implements UserDetails, CredentialsContainer {
         this.roles = roles;
     }
 
+    @Transient
     public Set<String> getRoleNames() {
         if (roles == null) {
             return Collections.emptySet();
@@ -166,15 +169,18 @@ public class User implements UserDetails, CredentialsContainer {
         return roles.stream().map(Role::getName).collect(Collectors.toSet());
     }
 
+    @Transient
     public boolean isAdmin() {
         return getRoleNames().contains("ADMIN");
     }
 
+    @Transient
     public boolean isUser() {
         return getRoleNames().contains("USER");
     }
 
     @Override
+    @Transient
     public Collection<GrantedAuthority> getAuthorities() {
         if (roles == null) {
             return Collections.emptySortedSet();

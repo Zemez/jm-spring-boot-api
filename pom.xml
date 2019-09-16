@@ -12,7 +12,7 @@
 
     <groupId>com.javamentor</groupId>
     <artifactId>jm-spring-boot-api</artifactId>
-    <description>Java Mentor Spring Boot API</description>
+    <description>Java Mentor Spring Boot API Service</description>
     <version>1.0.0-SNAPSHOT</version>
     <name>jm-spring-boot-api</name>
     <packaging>jar</packaging>
@@ -46,28 +46,28 @@
         </dependency>
 
         <!--  JDK 1.8 needs this -->
-        <dependency>
-            <groupId>javax.interceptor</groupId>
-            <artifactId>javax.interceptor-api</artifactId>
-            <version>1.2.2</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>javax.interceptor</groupId>-->
+        <!--            <artifactId>javax.interceptor-api</artifactId>-->
+        <!--            <version>1.2.2</version>-->
+        <!--        </dependency>-->
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-configuration-processor</artifactId>-->
+        <!--            <optional>true</optional>-->
+        <!--        </dependency>-->
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-actuator</artifactId>-->
+        <!--        </dependency>-->
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-devtools</artifactId>-->
+        <!--            <optional>true</optional>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

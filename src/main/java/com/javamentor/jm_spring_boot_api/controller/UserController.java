@@ -5,12 +5,12 @@ import com.javamentor.jm_spring_boot_api.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -23,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> user(@PathVariable Long id) {
+    public ResponseEntity<User> findById(@PathVariable Long id) {
         User user = userService.findById(id);
         logger.debug("User read: {}", user);
         if (user == null) {
@@ -33,8 +33,19 @@ public class UserController {
         }
     }
 
+    @GetMapping(path = "/name/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> findByUsername(@PathVariable String username) {
+        User user = userService.findByUsername(username);
+        logger.debug("User read: {}", user);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(user);
+        }
+    }
+
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<User>> users() {
+    public ResponseEntity<List<User>> findAll() {
         List<User> users = userService.findAll();
 //        logger.debug("Users read: {}", users);
         if (users == null) {
@@ -49,7 +60,7 @@ public class UserController {
         User userNew = userService.create(user);
         logger.debug("User create: {}", userNew);
         if (userNew == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         } else {
             return ResponseEntity.ok(userNew);
         }
@@ -60,18 +71,18 @@ public class UserController {
         User userUpd = userService.update(user);
         logger.debug("User update: {}", userUpd);
         if (userUpd == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         } else {
             return ResponseEntity.ok(userUpd);
         }
     }
 
     @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
         try {
             userService.deleteById(id);
             logger.debug("User delete: {}", id);
-            return ResponseEntity.ok(Collections.singletonMap("message", "User successful deleted."));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
